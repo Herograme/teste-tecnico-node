@@ -10,11 +10,20 @@ COPY package*.json ./
 # Instala TODAS as dependências (incluindo devDependencies para build)
 RUN npm ci && npm cache clean --force
 
+# Verifica se o nest CLI foi instalado
+RUN npx nest --version || echo "Nest CLI não encontrado, mas continuando..."
+
 # Copia o código fonte
 COPY . .
 
+# Verifica se os arquivos de configuração TypeScript existem
+RUN ls -la tsconfig*.json nest-cli.json || echo "Arquivos de configuração não encontrados!"
+
 # Build da aplicação
 RUN npm run build
+
+# Verifica se o build gerou o diretório dist
+RUN ls -la dist/ || echo "Diretório dist não foi criado!"
 
 # Stage 2: Production
 FROM node:20-alpine AS production

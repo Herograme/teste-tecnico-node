@@ -7,6 +7,10 @@ WORKDIR /app
 # Copia os arquivos de dependências
 COPY package*.json ./
 
+# IMPORTANTE: Força NODE_ENV=development durante o build para instalar devDependencies
+# Isso garante que @nestjs/cli, typescript, etc sejam instalados
+ENV NODE_ENV=development
+
 # Instala TODAS as dependências (incluindo devDependencies para build)
 RUN npm ci && npm cache clean --force
 

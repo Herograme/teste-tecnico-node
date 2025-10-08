@@ -17,8 +17,6 @@ README_*.md
 test
 *.spec.ts
 jest.config.js
-tsconfig.json
-tsconfig.build.json
 .eslintrc.js
 eslint.config.mjs
 .prettierrc

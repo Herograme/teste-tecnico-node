@@ -11,7 +11,7 @@ export const getTypeOrmConfig = (
   password: configService.get('DB_PASSWORD'),
   database: configService.get('DB_DATABASE'),
   entities: [__dirname + '/../**/*.entity{.ts,.js}'],
-  synchronize: configService.get('NODE_ENV') === 'development',
+  synchronize: true, // Habilita criação automática de tabelas (necessário para Coolify)
   logging: configService.get('NODE_ENV') === 'development',
 
   // Configurações de timeout e resiliência

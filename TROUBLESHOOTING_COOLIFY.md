@@ -1,6 +1,27 @@
 # 🔧 Troubleshooting - Coolify Deploy
 
-## 🚨 Gateway Timeout no Coolify
+## 🚨 Problemas Comuns no Coolify
+
+### 1. ❌ Build Error: "exit code: 127"
+
+**Erro completo:**
+```
+RUN npm run build
+failed to solve: process "/bin/sh -c npm run build" did not complete successfully: exit code: 127
+```
+
+**Causa:** Cache antigo do Docker no Coolify ou arquivos de configuração TypeScript faltando.
+
+**Solução:** Veja o guia completo em **[SOLUCAO_EXIT_127.md](./SOLUCAO_EXIT_127.md)**
+
+**Solução Rápida:**
+1. No Coolify, ative **"No Cache"** ou **"Clean Build"** nas opções de build
+2. Faça o redeploy
+3. Se não funcionar, delete a aplicação e recrie do zero
+
+---
+
+### 2. 🚨 Gateway Timeout no Coolify
 
 Se você está recebendo **Gateway Timeout** ao fazer requisições para a API no Coolify, siga este guia.
 

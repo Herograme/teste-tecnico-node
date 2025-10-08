@@ -1,34 +1,39 @@
+# Docker Compose para Coolify
+# Otimizado para deploy em VPS com Coolify
 version: '3.8'
 
 services:
+  # Banco de dados PostgreSQL
   postgres:
     image: postgres:15-alpine
-    container_name: teste-tecnico-postgres
-    restart: always
+    restart: unless-stopped
     environment:
       POSTGRES_USER: ${DB_USERNAME:-postgres}
       POSTGRES_PASSWORD: ${DB_PASSWORD:-postgres}
       POSTGRES_DB: ${DB_DATABASE:-teste_tecnico}
-    ports:
-      - '${DB_PORT:-5432}:5432'
+      PGDATA: /var/lib/postgresql/data/pgdata
     volumes:
       - postgres_data:/var/lib/postgresql/data
     networks:
       - app-network
     healthcheck:
-      test: ['CMD-SHELL', 'pg_isready -U postgres']
+      test: ['CMD-SHELL', 'pg_isready -U ${DB_USERNAME:-postgres}']
       interval: 10s
       timeout: 5s
       retries: 5
+      start_period: 30s
+    # Coolify gerencia as portas - não exponha manualmente
+    # ports:
+    #   - '5432:5432'
 
+  # Aplicação NestJS
   app:
     build:
       context: .
       dockerfile: Dockerfile
-    container_name: teste-tecnico-app
-    restart: always
-    ports:
-      - '${PORT:-3000}:3000'
+      args:
+        NODE_ENV: production
+    restart: unless-stopped
     environment:
       NODE_ENV: ${NODE_ENV:-production}
       PORT: ${PORT:-3000}
@@ -42,9 +47,21 @@ services:
         condition: service_healthy
     networks:
       - app-network
+    # Coolify gerencia as portas e proxy reverso
+    expose:
+      - "3000"
+    labels:
+      # Labels para Coolify identificar o serviço principal
+      - "coolify.managed=true"
+      - "coolify.type=application"
+      # Health check para Coolify
+      - "coolify.healthcheck.path=/"
+      - "coolify.healthcheck.port=3000"
+      - "coolify.healthcheck.interval=30s"
 
 volumes:
   postgres_data:
+    driver: local
 
 networks:
   app-network:

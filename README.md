@@ -7,7 +7,37 @@ API REST completa que gerencia usuários e tarefas, desenvolvida seguindo **padr
 - ✅ **Clean Architecture** - Camadas bem definidas (Controller → Service → Repository → Database)
 - ✅ **SOLID Principles** - Código extensível, testável e manutenível
 - ✅ **TypeScript Avançado** - 100% tipado, zero `any`, contratos explícitos
-- ✅ **Testes Automatizados** - Unitários + E2E com 85%+ de cobertura
+- ✅ **Testes Automatizados** - Unitários + E2E co## 📖 Documentação Completa
+
+Para testar a API de forma detalhada, consulte:
+
+**[📚 Swagger/OpenAPI - Interface Interativa](http://localhost:3000/api/docs)** - Documentação principal:
+- Teste todos os endpoints no navegador
+- Visualize schemas e validações
+- Explore exemplos de requisições e respostas
+- Exporte para Postman/Insomnia
+
+**[📮 README_POSTMAN.md](./README_POSTMAN.md)** - Guia complementar com:
+- Exemplos de todas as requisições em cURL
+- Respostas esperadas detalhadas
+- Cenários de teste
+- Collection do Postman (opcional)
+
+**[🐳 README_DOCKER.md](./README_DOCKER.md)** - Guia completo de Docker:
+- Como rodar com Docker Compose
+- Build de imagens personalizadas
+- Troubleshooting de containers
+
+**[🚀 README_COOLIFY.md](./README_COOLIFY.md)** - Deploy no Coolify:
+- Configuração passo a passo
+- Variáveis de ambiente necessárias
+- Setup de PostgreSQL
+
+**[🔧 TROUBLESHOOTING_COOLIFY.md](./TROUBLESHOOTING_COOLIFY.md)** - **NOVO!** Resolução de problemas:
+- ⚠️ **Corrige Gateway Timeout no Coolify**
+- Health checks e readiness probes
+- Configuração de timeouts e retry
+- Debugging de conexão com banco de dadostura
 - ✅ **Documentação Swagger** - API totalmente documentada com OpenAPI 3.0
 - ✅ **Docker & DevOps** - Ambiente containerizado e pronto para produçãotp://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
 </p>

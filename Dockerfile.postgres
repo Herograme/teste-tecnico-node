@@ -1,0 +1,18 @@
+FROM postgres:15-alpine
+
+# Define variáveis de ambiente
+ENV POSTGRES_USER=postgres
+ENV POSTGRES_DB=teste_tecnico
+
+# Cria o diretório de dados
+RUN mkdir -p /var/lib/postgresql/data && \
+    chown -R postgres:postgres /var/lib/postgresql/data
+
+# Expõe a porta padrão do PostgreSQL
+EXPOSE 5432
+
+# Volume para persistência de dados
+VOLUME /var/lib/postgresql/data
+
+# Comando padrão
+CMD ["postgres"]

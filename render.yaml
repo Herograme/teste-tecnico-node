@@ -1,0 +1,51 @@
+services:
+  # Banco de dados PostgreSQL
+  - type: pserv
+    name: teste-tecnico-postgres
+    env: docker
+    plan: free
+    region: oregon
+    dockerfilePath: ./Dockerfile.postgres
+    dockerContext: .
+    envVars:
+      - key: POSTGRES_USER
+        value: postgres
+      - key: POSTGRES_PASSWORD
+        generateValue: true
+      - key: POSTGRES_DB
+        value: teste_tecnico
+    disk:
+      name: postgres-data
+      mountPath: /var/lib/postgresql/data
+      sizeGB: 1
+
+  # Aplicação NestJS
+  - type: web
+    name: teste-tecnico-api
+    env: docker
+    plan: free
+    region: oregon
+    dockerfilePath: ./Dockerfile
+    dockerContext: .
+    healthCheckPath: /
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 3000
+      - key: DB_HOST
+        fromService:
+          type: pserv
+          name: teste-tecnico-postgres
+          property: host
+      - key: DB_PORT
+        value: 5432
+      - key: DB_USERNAME
+        value: postgres
+      - key: DB_PASSWORD
+        fromService:
+          type: pserv
+          name: teste-tecnico-postgres
+          envVarKey: POSTGRES_PASSWORD
+      - key: DB_DATABASE
+        value: teste_tecnico

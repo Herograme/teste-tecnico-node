@@ -32,6 +32,9 @@ RUN ls -la dist/ || echo "Diretório dist não foi criado!"
 # Stage 2: Production
 FROM node:20-alpine AS production
 
+# Instala curl para o healthcheck
+RUN apk add --no-cache curl
+
 # Define o diretório de trabalho
 WORKDIR /app
 
@@ -50,6 +53,11 @@ EXPOSE 3000
 # Define variáveis de ambiente padrão
 ENV NODE_ENV=production
 ENV PORT=3000
+
+# Healthcheck - verifica se a aplicação está respondendo
+# Usa o endpoint /health que não depende do banco de dados
+HEALTHCHECK --interval=10s --timeout=5s --start-period=30s --retries=3 \
+  CMD curl -f http://localhost:3000/health || exit 1
 
 # Comando para iniciar a aplicação
 CMD ["node", "dist/main"]

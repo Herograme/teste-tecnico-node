@@ -202,18 +202,26 @@ npm run docker:logs
 npm run docker:down
 ```
 
-### Deploy no Render
+### Deploy em Produção
 
-O projeto está pronto para deploy no Render com configuração completa:
+O projeto está pronto para deploy com configuração completa para múltiplas plataformas:
 
-1. **Blueprint automatizado** (`render.yaml`)
-2. **Multi-stage Docker build** otimizado
-3. **Variáveis de ambiente** configuradas
-4. **Health checks** integrados
+#### 🎯 Coolify (VPS Self-hosted) ⭐ RECOMENDADO
+- **Multi-stage Docker build** otimizado
+- **Auto-deploy** em cada push
+- **SSL/TLS** automático via Let's Encrypt
+- **Custo**: VPS (~$5-10/mês)
+
+#### ☁️ Render (Cloud Managed)
+- **Blueprint automatizado** (`render.yaml`)
+- **PostgreSQL gerenciado**
+- **Domínio gratuito** (.onrender.com)
+- **Custo**: Plano Free disponível
 
 📖 **Documentação completa:**
+- [🚀 Deploy no Coolify](./README_COOLIFY.md) - Deploy em VPS própria (NOVO!)
 - [📘 Guia Docker](./README_DOCKER.md) - Desenvolvimento local com Docker
-- [🚀 Deploy no Render](./README_RENDER.md) - Deploy em produção passo a passo
+- [☁️ Deploy no Render](./README_RENDER.md) - Deploy em cloud gerenciada
 
 ---
 
